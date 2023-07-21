@@ -10,7 +10,6 @@ export function ViewProject(state: ViewProjectPage) {
   return (
     <>
       <NavBar />
-
       <Container>
         <h2>
           {state.project.id} - {state.project.name}
@@ -25,23 +24,17 @@ export function ViewProject(state: ViewProjectPage) {
             </tr>
           </tbody>
         </table>{" "}
+        <SecondaryButton
+          text="Editar projeto"
+          onClick={placeholderFn}
+          icon={faEdit}
+        />{" "}
+        <PrimaryButton
+          text="Baixar proposta"
+          onClick={placeholderFn}
+          icon={faDownload}
+        />
       </Container>
-
-      <div className="navbar sticky-bottom navbar-light bg-light">
-        <div style={{ width: "100%", direction: "rtl" }}>
-          <LineSpacer />
-          <PrimaryButton
-            text="Baixar proposta"
-            onClick={placeholderFn}
-            icon={faDownload}
-          />{" "}
-          <SecondaryButton
-            text="Editar projeto"
-            onClick={placeholderFn}
-            icon={faEdit}
-          />
-        </div>
-      </div>
     </>
   );
 }
