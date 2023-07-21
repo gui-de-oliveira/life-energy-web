@@ -5,13 +5,15 @@ export function PrimaryButton({
   onClick,
   text,
   icon,
+  disabled,
 }: {
   onClick: () => void;
   text: string;
   icon?: IconDefinition;
+  disabled?: boolean;
 }) {
   return (
-    <button className="btn btn-primary" onClick={onClick}>
+    <button className="btn btn-primary" onClick={onClick} disabled={disabled}>
       {text}
 
       {icon && (
@@ -28,13 +30,19 @@ export function SecondaryButton({
   onClick,
   text,
   icon,
+  disabled,
 }: {
   onClick: () => void;
   text: string;
   icon?: IconDefinition;
+  disabled?: boolean;
 }) {
   return (
-    <button className="btn btn-outline-primary" onClick={onClick}>
+    <button
+      className="btn btn-outline-primary"
+      onClick={onClick}
+      disabled={disabled}
+    >
       {text}
       {icon && (
         <>

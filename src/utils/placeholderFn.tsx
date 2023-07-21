@@ -1,3 +1,3 @@
 export function placeholderFn() {
-  console.log("TODO: Implement this! 😅");
+  alert("TODO: ainda não implementado! 😅");
 }

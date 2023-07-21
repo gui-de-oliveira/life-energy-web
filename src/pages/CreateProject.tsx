@@ -1,48 +1,40 @@
-import { CreateProjectPage } from "../store/slices/root";
+import { CreateProjectPage, useRoot } from "../store/slices/root";
 import { NavBar } from "../ds/NavBar";
 import { Container } from "../ds/Container";
 import { PrimaryButton } from "../ds/Buttons";
-import { placeholderFn } from "../utils/placeholderFn";
 import { faFolderPlus } from "@fortawesome/free-solid-svg-icons";
+import { useGeneratedId } from "../utils/useGeneratedId";
+import { useProjects } from "../store/slices/projects";
 
-export function CreateProject(_state: CreateProjectPage) {
+export function CreateProject(state: CreateProjectPage) {
+  const { updateCreateProjectInput, goToProjectsPage } = useRoot();
+  const { createProject } = useProjects();
+
   return (
     <>
       <NavBar />
 
       <Container>
         <h2>Identificação</h2>
-        <TextInput label={"Id"} />
-        <TextInput label={"Nome"} />
-        <TextInput label={"Ícone"} />
-        <TextInput label={"Data"} />
-        <TextInput label={"Lugar"} />
+        <TextInput
+          label={"Id"}
+          value={state.input.id}
+          onUpdate={(value) => updateCreateProjectInput({ id: value })}
+        />
 
-        <h2>Especificações</h2>
-        <TextInput label={"Consumo ao ano"} />
-        <TextInput label={"Concessionária"} />
-        <TextInput label={"Tensão"} />
-        <TextInput label={"Disjuntor"} />
-        <TextInput label={"Transformador"} />
+        <TextInput
+          label={"Nome"}
+          value={state.input.name}
+          onUpdate={(value) => updateCreateProjectInput({ name: value })}
+        />
 
-        <TextInput label={"Potência"} />
-        <TextInput label={"Módulos"} />
-        <TextInput label={"Geração ao ano"} />
-        <TextInput label={"% de geração"} />
-        <TextInput label={"Área estimada"} />
-        <TextInput label={"Telhado"} />
-
-        <h2>Análise do Projeto</h2>
-        <TextInput label={"Consumo de kWh por mês"} />
-
-        <h2>Equipamentos</h2>
-        <TextInput label={"Equipamentos"} />
-
-        <h2>Investimento</h2>
-        <TextInput label={"Investimento"} />
         <PrimaryButton
           text="Criar projeto"
-          onClick={placeholderFn}
+          disabled={state.input.id === "" || state.input.name === ""}
+          onClick={() => {
+            createProject(state.input);
+            goToProjectsPage();
+          }}
           icon={faFolderPlus}
         />
       </Container>
@@ -50,19 +42,29 @@ export function CreateProject(_state: CreateProjectPage) {
   );
 }
 
-function TextInput({ label }: { label: string }) {
+function TextInput({
+  label,
+  value,
+  onUpdate,
+}: {
+  label: string;
+  value: string;
+  onUpdate: (value: string) => void;
+}) {
+  const id = useGeneratedId();
   return (
     <div className="row mb-3">
-      <label htmlFor="exampleInputEmail1" className="col-sm-3 col-form-label">
+      <label htmlFor={id} className="col-sm-3 col-form-label">
         {label}
       </label>
 
       <div className="col-sm-9">
         <input
-          type="text"
+          id={id}
           className="form-control"
-          id="exampleInputEmail1"
-          aria-describedby="emailHelp"
+          type="text"
+          value={value}
+          onChange={(ev) => onUpdate(ev.target.value)}
         />
       </div>
     </div>

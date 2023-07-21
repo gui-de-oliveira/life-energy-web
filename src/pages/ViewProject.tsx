@@ -6,34 +6,22 @@ import { placeholderFn } from "../utils/placeholderFn";
 import { LineSpacer } from "../ds/LineSpacer";
 import { Container } from "../ds/Container";
 
-export function ViewProject(_state: ViewProjectPage) {
+export function ViewProject(state: ViewProjectPage) {
   return (
     <>
       <NavBar />
 
       <Container>
-        <h2>P1337 - LUCI IMOVEIS LTDA</h2>
+        <h2>
+          {state.project.id} - {state.project.name}
+        </h2>
         <table className="table table-hover">
           <tbody>
             <tr>
               <th scope="row">Identificação</th>
-              <td>P1337 - LUCI IMOVEIS LTDA</td>
-            </tr>
-            <tr>
-              <th scope="row">Consumo ao ano</th>
-              <td>31,800 kWh</td>
-            </tr>
-            <tr>
-              <th scope="row">Concessionária</th>
-              <td>Trifásica 380/220 V</td>
-            </tr>
-            <tr>
-              <th scope="row">Disjuntor</th>
-              <td>40A</td>
-            </tr>
-            <tr>
-              <th scope="row">Transformador</th>
-              <td>Não necessário</td>
+              <td>
+                {state.project.id} - {state.project.name}
+              </td>
             </tr>
           </tbody>
         </table>{" "}
