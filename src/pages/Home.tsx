@@ -1,22 +1,24 @@
-import { useAppDispatch } from "../store/store";
-import { HomePage, rootActions } from "../store/slices/root";
+import { HomePage, useRoot } from "../store/slices/root";
 import { NavBar } from "../ds/NavBar";
+import { faFolderOpen } from "@fortawesome/free-solid-svg-icons";
+import { Card } from "../ds/Card";
+import { Container } from "../ds/Container";
 
 export function Home(_state: HomePage) {
-  const dispatch = useAppDispatch();
+  const { goToProjectsPage } = useRoot();
 
   return (
     <>
       <NavBar />
 
-      <div className="container">
-        <button
-          className="btn btn-link"
-          onClick={() => dispatch(rootActions.goToProjectsPage())}
-        >
-          Projects!
-        </button>
-      </div>
+      <Container>
+        <Card
+          icon={faFolderOpen}
+          title="Projetos"
+          description="Gerenciamento de projetos"
+          onClick={goToProjectsPage}
+        />
+      </Container>
     </>
   );
 }

@@ -1,17 +1,14 @@
-import { useAppDispatch } from "../store/store";
-import { rootActions } from "../store/slices/root";
+import { useRoot } from "../store/slices/root";
+
+/* eslint-disable jsx-a11y/anchor-is-valid */
 
 export function NavBar() {
-  const dispatch = useAppDispatch();
+  const { goToHomePage } = useRoot();
 
   return (
     <nav className="navbar navbar-light bg-light">
       <div className="container-fluid">
-        <a
-          className="navbar-brand"
-          onClick={() => dispatch(rootActions.goToHomePage())}
-          href="#"
-        >
+        <a className="navbar-brand" onClick={goToHomePage} href="#">
           Life Energy
         </a>
       </div>
