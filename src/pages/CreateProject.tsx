@@ -8,7 +8,7 @@ import { useProjects } from "../store/slices/projects";
 import CurrencyInput from "react-currency-input-field";
 
 export function CreateProject(state: CreateProjectPage) {
-  const { updateCreateProjectInput, goToProjectsPage } = useRoot();
+  const { updateCreateProjectInput, openProject } = useRoot();
   const { saveProject } = useProjects();
 
   const months = [
@@ -370,7 +370,7 @@ export function CreateProject(state: CreateProjectPage) {
           disabled={state.input.id === "" || state.input.name === ""}
           onClick={() => {
             saveProject(state.input);
-            goToProjectsPage();
+            openProject(state.input);
           }}
           icon={faFolderPlus}
         />
