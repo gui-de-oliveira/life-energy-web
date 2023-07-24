@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/life-energy-web/static/css/main.e4889cbf.css",
-    "main.js": "/life-energy-web/static/js/main.65bdbe55.js",
+    "main.js": "/life-energy-web/static/js/main.f1c17498.js",
     "static/js/787.58336002.chunk.js": "/life-energy-web/static/js/787.58336002.chunk.js",
     "index.html": "/life-energy-web/index.html",
     "main.e4889cbf.css.map": "/life-energy-web/static/css/main.e4889cbf.css.map",
-    "main.65bdbe55.js.map": "/life-energy-web/static/js/main.65bdbe55.js.map",
+    "main.f1c17498.js.map": "/life-energy-web/static/js/main.f1c17498.js.map",
     "787.58336002.chunk.js.map": "/life-energy-web/static/js/787.58336002.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e4889cbf.css",
-    "static/js/main.65bdbe55.js"
+    "static/js/main.f1c17498.js"
   ]
 }
