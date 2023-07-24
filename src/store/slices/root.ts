@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { useAppDispatch, useAppSelector } from "../store";
 import { Project } from "../../schemas";
+import { v4 as uuidv4 } from "uuid";
 
 export type HomePage = {
   page: "home";
@@ -12,12 +13,12 @@ export type ProjectsListPage = {
 
 export type ViewProjectPage = {
   page: "view-project";
-  project: Project;
+  project: Project & { internalId: string };
 };
 
 export type CreateProjectPage = {
   page: "create-project";
-  input: Project;
+  input: Project & { internalId: string };
 };
 
 type Root = HomePage | ProjectsListPage | ViewProjectPage | CreateProjectPage;
@@ -30,14 +31,24 @@ export const root = createSlice({
     goToProjectsPage: (): ProjectsListPage => ({ page: "projects-list" }),
     openProject: (
       _state,
-      project: PayloadAction<Project>
+      project: PayloadAction<Project & { internalId: string }>
     ): ViewProjectPage => ({
       page: "view-project",
       project: project.payload,
     }),
+
+    editProject: (
+      _state,
+      project: PayloadAction<Project & { internalId: string }>
+    ): CreateProjectPage => ({
+      page: "create-project",
+      input: project.payload,
+    }),
+
     goToCreateProjectPage: (): CreateProjectPage => ({
       page: "create-project",
       input: {
+        internalId: uuidv4(),
         id: "",
         name: "",
         location: "",
@@ -134,8 +145,10 @@ export function useRoot() {
     state,
     goToHomePage: () => dispatch(root.actions.goToHomePage()),
     goToProjectsPage: () => dispatch(root.actions.goToProjectsPage()),
-    openProject: (project: Project) =>
+    openProject: (project: Project & { internalId: string }) =>
       dispatch(root.actions.openProject(project)),
+    editProject: (project: CreateProjectPage["input"]) =>
+      dispatch(root.actions.editProject(project)),
 
     goToCreateProjectPage: () => dispatch(root.actions.goToCreateProjectPage()),
     updateCreateProjectInput: (payload: Partial<CreateProjectPage["input"]>) =>

@@ -1,12 +1,12 @@
-import { ViewProjectPage } from "../store/slices/root";
+import { ViewProjectPage, useRoot } from "../store/slices/root";
 import { NavBar } from "../ds/NavBar";
 import { faDownload, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { PrimaryButton, SecondaryButton } from "../ds/Buttons";
-import { placeholderFn } from "../utils/placeholderFn";
 import { Container } from "../ds/Container";
 import { Project } from "../schemas";
 
 export function ViewProject(state: ViewProjectPage) {
+  const { editProject } = useRoot();
   return (
     <>
       <NavBar />
@@ -26,7 +26,7 @@ export function ViewProject(state: ViewProjectPage) {
         </table>{" "}
         <SecondaryButton
           text="Editar projeto"
-          onClick={placeholderFn}
+          onClick={() => editProject(state.project)}
           icon={faEdit}
         />{" "}
         <PrimaryButton

@@ -4,10 +4,21 @@ import { Project } from "../../schemas";
 
 export const projectsSlice = createSlice({
   name: "projects",
-  initialState: [] as Project[],
+  initialState: [] as (Project & { internalId: string })[],
   reducers: {
-    createProject: (state, action: PayloadAction<Project>) => {
-      state.push(action.payload);
+    saveProject: (
+      state,
+      action: PayloadAction<Project & { internalId: string }>
+    ) => {
+      const index = state.findIndex(
+        (s) => s.internalId === action.payload.internalId
+      );
+
+      if (index === -1) {
+        state.push(action.payload);
+      } else {
+        state[index] = action.payload;
+      }
     },
   },
 });
@@ -18,8 +29,8 @@ export function useProjects() {
 
   return {
     state,
-    createProject: (project: Project) =>
-      dispatch(projectsActions.createProject(project)),
+    saveProject: (project: Project & { internalId: string }) =>
+      dispatch(projectsActions.saveProject(project)),
   };
 }
 

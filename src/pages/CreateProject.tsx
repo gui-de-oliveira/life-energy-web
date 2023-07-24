@@ -9,7 +9,7 @@ import CurrencyInput from "react-currency-input-field";
 
 export function CreateProject(state: CreateProjectPage) {
   const { updateCreateProjectInput, goToProjectsPage } = useRoot();
-  const { createProject } = useProjects();
+  const { saveProject } = useProjects();
 
   const months = [
     "Janeiro",
@@ -55,6 +55,7 @@ export function CreateProject(state: CreateProjectPage) {
           label={"Consumo anual"}
           placeholder="10.000"
           rightGroupText="kWh"
+          value={state.input.yearlyConsumption}
           onUpdate={(value) =>
             updateCreateProjectInput({ yearlyConsumption: value })
           }
@@ -76,6 +77,7 @@ export function CreateProject(state: CreateProjectPage) {
         <NumberInput
           label={"Disjuntor (A)"}
           placeholder="50"
+          value={state.input.circuitBreakerAmp}
           onUpdate={(value) =>
             updateCreateProjectInput({ circuitBreakerAmp: value })
           }
@@ -90,6 +92,7 @@ export function CreateProject(state: CreateProjectPage) {
           label={"Geração estimada (ano)"}
           placeholder="10.000"
           rightGroupText="kWh"
+          value={state.input.estimatedYearlyProduction}
           onUpdate={(value) =>
             updateCreateProjectInput({ estimatedYearlyProduction: value })
           }
@@ -98,6 +101,7 @@ export function CreateProject(state: CreateProjectPage) {
           label={"Área necessária"}
           placeholder="60,00"
           rightGroupText="m²"
+          value={state.input.necessaryArea}
           onUpdate={(value) =>
             updateCreateProjectInput({ necessaryArea: value })
           }
@@ -106,18 +110,21 @@ export function CreateProject(state: CreateProjectPage) {
           label={"Potência usina"}
           placeholder="12,50"
           rightGroupText="kWp"
+          value={state.input.potency}
           onUpdate={(value) => updateCreateProjectInput({ potency: value })}
         />
         <NumberInput
           label={"Quantidade de módulos"}
           placeholder="20"
           rightGroupText="módulos"
+          value={state.input.nrOfModules}
           onUpdate={(value) => updateCreateProjectInput({ nrOfModules: value })}
         />
         <h2>Análise do projeto</h2>
         <NumberInput
           label={"Código do UG"}
           placeholder="34712345"
+          value={state.input.ugId}
           onUpdate={(value) => updateCreateProjectInput({ ugId: value })}
         />
         <CheckboxInput
@@ -134,6 +141,7 @@ export function CreateProject(state: CreateProjectPage) {
         <MoneyInput
           label={"Tarifa"}
           placeholder="R$ 0,89"
+          value={state.input.fare}
           onUpdate={(value) => updateCreateProjectInput({ fare: value })}
         />
         <img
@@ -149,6 +157,8 @@ export function CreateProject(state: CreateProjectPage) {
             label={month}
             placeholder="1.000"
             rightGroupText="kWh"
+            key={index}
+            value={state.input.energyConsumption[index]}
             onUpdate={(value) => {
               const updated = [...state.input.energyConsumption];
               updated[index] = value;
@@ -162,6 +172,8 @@ export function CreateProject(state: CreateProjectPage) {
             label={month}
             placeholder="1.000"
             rightGroupText="kWh"
+            value={state.input.energyProduction[index]}
+            key={index}
             onUpdate={(value) => {
               const updated = [...state.input.energyProduction];
               updated[index] = value;
@@ -173,6 +185,7 @@ export function CreateProject(state: CreateProjectPage) {
         <MoneyInput
           label={"Gasto anual SEM energia solar"}
           placeholder="R$ 13.000,00"
+          value={state.input.valueWithoutSolar}
           onUpdate={(value) =>
             updateCreateProjectInput({ valueWithoutSolar: value })
           }
@@ -180,6 +193,7 @@ export function CreateProject(state: CreateProjectPage) {
         <MoneyInput
           label={"Gasto anual COM energia solar"}
           placeholder="R$ 2.000,00"
+          value={state.input.valueWithSolar}
           onUpdate={(value) =>
             updateCreateProjectInput({ valueWithSolar: value })
           }
@@ -226,6 +240,7 @@ export function CreateProject(state: CreateProjectPage) {
         <MoneyInput
           label={"Investimento total"}
           placeholder="R$ 45.000,00"
+          value={state.input.investment.totalValue}
           onUpdate={(value) =>
             updateCreateProjectInput({
               investment: {
@@ -238,6 +253,7 @@ export function CreateProject(state: CreateProjectPage) {
         <MoneyInput
           label={"Valor específico"}
           placeholder="R$ 4.000,00"
+          value={state.input.investment.specifics}
           onUpdate={(value) =>
             updateCreateProjectInput({
               investment: {
@@ -250,6 +266,7 @@ export function CreateProject(state: CreateProjectPage) {
         <NumberInput
           label={"Payback"}
           placeholder="3,5"
+          value={state.input.investment.paybackRate}
           onUpdate={(value) =>
             updateCreateProjectInput({
               investment: {
@@ -263,6 +280,7 @@ export function CreateProject(state: CreateProjectPage) {
           label={"TIR"}
           placeholder="3,5"
           rightGroupText="%"
+          value={state.input.investment.tirPercentage}
           onUpdate={(value) =>
             updateCreateProjectInput({
               investment: {
@@ -275,6 +293,7 @@ export function CreateProject(state: CreateProjectPage) {
         <MoneyInput
           label={"VPL"}
           placeholder="R$ 60.000,00"
+          value={state.input.investment.vplValue}
           onUpdate={(value) =>
             updateCreateProjectInput({
               investment: {
@@ -287,6 +306,7 @@ export function CreateProject(state: CreateProjectPage) {
         <MoneyInput
           label={"FC. Período"}
           placeholder="R$ 450.000,00"
+          value={state.input.investment.fcPeriod}
           onUpdate={(value) =>
             updateCreateProjectInput({
               investment: {
@@ -312,6 +332,7 @@ export function CreateProject(state: CreateProjectPage) {
         <NumberInput
           label={"Parcelas"}
           placeholder="120"
+          value={state.input.investment.nrOfPayments}
           onUpdate={(value) =>
             updateCreateProjectInput({
               investment: {
@@ -324,6 +345,7 @@ export function CreateProject(state: CreateProjectPage) {
         <MoneyInput
           label={"Valor da parcela"}
           placeholder="R$ 900,00"
+          value={state.input.investment.monthlyPaymentValue}
           onUpdate={(value) =>
             updateCreateProjectInput({
               investment: {
@@ -344,10 +366,10 @@ export function CreateProject(state: CreateProjectPage) {
           }
         />
         <PrimaryButton
-          text="Criar projeto"
+          text="Salvar projeto"
           disabled={state.input.id === "" || state.input.name === ""}
           onClick={() => {
-            createProject(state.input);
+            saveProject(state.input);
             goToProjectsPage();
           }}
           icon={faFolderPlus}
@@ -371,10 +393,12 @@ export function generateChartUrl(chartId: string, datasets: number[][]) {
 function MoneyInput({
   label,
   onUpdate,
+  value,
   placeholder,
 }: {
   label: string;
   placeholder?: string;
+  value: number;
   onUpdate: (value: number) => void;
 }) {
   const id = useGeneratedId();
@@ -393,6 +417,7 @@ function MoneyInput({
           intlConfig={{ locale: "pt-BR", currency: "BRL" }}
           placeholder={placeholder}
           decimalsLimit={2}
+          defaultValue={value}
           onValueChange={(value) => {
             if (value === undefined) {
               return;
@@ -409,6 +434,7 @@ function MoneyInput({
 
 function NumberInput({
   label,
+  value,
   onUpdate,
   placeholder,
   leftGroupText,
@@ -418,6 +444,7 @@ function NumberInput({
   placeholder?: string;
   leftGroupText?: string;
   rightGroupText?: string;
+  value: number;
   onUpdate: (value: number) => void;
 }) {
   const id = useGeneratedId();
@@ -440,6 +467,7 @@ function NumberInput({
             placeholder={placeholder}
             decimalSeparator=","
             groupSeparator="."
+            defaultValue={value}
             onValueChange={(value) => {
               if (value === undefined) {
                 return;
@@ -527,6 +555,7 @@ function DateInput({
             id={id}
             type="date"
             className="form-control"
+            value={value.toISOString().substring(0, "YYYY-MM-DD".length)}
             onChange={(ev) => onUpdate(new Date(ev.target.value))}
           />
         </div>
