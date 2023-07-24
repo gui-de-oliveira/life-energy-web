@@ -1,10 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { useAppDispatch, useAppSelector } from "../store";
-
-export type Project = {
-  id: string;
-  name: string;
-};
+import { Project } from "../../schemas";
 
 export const projectsSlice = createSlice({
   name: "projects",

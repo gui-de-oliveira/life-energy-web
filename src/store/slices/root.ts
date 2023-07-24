@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { useAppDispatch, useAppSelector } from "../store";
-import { Project } from "./projects";
+import { Project } from "../../schemas";
 
 export type HomePage = {
   page: "home";
@@ -17,10 +17,7 @@ export type ViewProjectPage = {
 
 export type CreateProjectPage = {
   page: "create-project";
-  input: {
-    id: string;
-    name: string;
-  };
+  input: Project;
 };
 
 type Root = HomePage | ProjectsListPage | ViewProjectPage | CreateProjectPage;
@@ -40,7 +37,69 @@ export const root = createSlice({
     }),
     goToCreateProjectPage: (): CreateProjectPage => ({
       page: "create-project",
-      input: { id: "", name: "" },
+      input: {
+        id: "",
+        name: "",
+        location: "",
+
+        yearlyConsumption: 0,
+        powerDistributionCompany: "",
+        tension: "",
+        circuitBreakerAmp: 0,
+        roofType: "",
+        estimatedYearlyProduction: 0,
+        necessaryArea: 0,
+        potency: 0,
+        nrOfModules: 0,
+
+        energyConsumption: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        energyProduction: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        ugId: 0,
+        hasUc: true,
+        groupType: "",
+        fare: 0,
+
+        valueWithoutSolar: 13548.12,
+        valueWithSolar: 2150.41,
+
+        equipments: {
+          modules: [
+            "22 módulos",
+            "55 kWh",
+            "DAH SOLAR",
+            "Mono Half-cell",
+            "21,42% de eficiência",
+            "12 anos de garantia",
+            "30 anos de garantia de performance 84,95%",
+          ],
+
+          inversors: [
+            "Inversor Solis",
+            "10kW de potência",
+            "10 anos de garantia",
+          ],
+
+          structures: [
+            "Estruturas com 100% alumínio",
+            "Proteção - String Box CC e CA",
+            "Cabeamento de dupla proteção",
+          ],
+        },
+
+        investment: {
+          totalValue: 0,
+          specifics: 0,
+          paybackRate: 0,
+          tirPercentage: 0,
+          vplValue: 0,
+          fcPeriod: 0,
+          bankSimulation: "",
+          nrOfPayments: 0,
+          monthlyPaymentValue: 0,
+        },
+
+        dueDate: new Date().toISOString(),
+      },
     }),
 
     updateCreateProjectInput: (
