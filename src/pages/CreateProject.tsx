@@ -51,15 +51,6 @@ export function CreateProject(state: CreateProjectPage) {
           onUpdate={(value) => updateCreateProjectInput({ location: value })}
         />
         <h2>Projeto</h2>
-        <NumberInput
-          label={"Consumo anual"}
-          placeholder="10.000"
-          rightGroupText="kWh"
-          value={state.input.yearlyConsumption}
-          onUpdate={(value) =>
-            updateCreateProjectInput({ yearlyConsumption: value })
-          }
-        />
         <TextInput
           label={"Concessionária"}
           placeholder="CEEE/Equatorial"
@@ -87,15 +78,6 @@ export function CreateProject(state: CreateProjectPage) {
           placeholder="Cerâmico"
           value={state.input.roofType}
           onUpdate={(value) => updateCreateProjectInput({ roofType: value })}
-        />
-        <NumberInput
-          label={"Geração estimada (ano)"}
-          placeholder="10.000"
-          rightGroupText="kWh"
-          value={state.input.estimatedYearlyProduction}
-          onUpdate={(value) =>
-            updateCreateProjectInput({ estimatedYearlyProduction: value })
-          }
         />
         <NumberInput
           label={"Área necessária"}

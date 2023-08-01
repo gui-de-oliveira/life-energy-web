@@ -14,10 +14,38 @@ import {
 } from "redux-persist";
 import { projectsSlice } from "./slices/projects";
 
+import { createTransform } from "redux-persist";
+import { projectSchema } from "../schemas";
+import { z } from "zod";
+
+type Reducer = ReturnType<typeof projectsSlice.reducer>;
+
+const transform = createTransform(
+  function save(inboundState: Reducer) {
+    return inboundState;
+  },
+
+  function rehydrate(outboundState: unknown): Reducer {
+    const result = projectSchema
+      .and(z.object({ internalId: z.string() }))
+      .array()
+      .safeParse(outboundState);
+
+    if (!result.success) {
+      return [];
+    }
+
+    return result.data;
+  },
+
+  { whitelist: [projectsSlice.name] }
+);
+
 const persistConfig = {
   key: "root",
   whitelist: [projectsSlice.name],
   storage,
+  transform: [transform],
 };
 
 const rootReducer = combineReducers({

@@ -3,7 +3,7 @@ import { NavBar } from "../ds/NavBar";
 import { faDownload, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { PrimaryButton, SecondaryButton } from "../ds/Buttons";
 import { Container } from "../ds/Container";
-import { Project } from "../schemas";
+import { ApiProject, Project } from "../schemas";
 import { useState } from "react";
 import { generateChartUrl } from "./CreateProject";
 
@@ -104,12 +104,16 @@ export function ViewProject(state: ViewProjectPage) {
               content: (
                 <Info
                   data={{
-                    "Consumo anual": formatMoney(p.yearlyConsumption),
+                    "Consumo anual": `${format(
+                      transform(p).yearlyConsumption
+                    )} kWp`,
+                    "Geração estimada ao ano": `${format(
+                      transform(p).necessaryArea
+                    )} kWp`,
                     Concessionária: p.powerDistributionCompany,
                     Tensão: p.tension,
                     "Disjuntor (A)": p.circuitBreakerAmp,
                     Telhado: p.roofType,
-                    "Geração estimada ao ano": `${p.necessaryArea} kWp`,
                     "Área necessária": `${p.necessaryArea} m²`,
                     "Potência usina": `${p.potency} kWp`,
                     "Quantidade de módulos": `${p.nrOfModules} módulos`,
@@ -168,7 +172,7 @@ export function ViewProject(state: ViewProjectPage) {
         />{" "}
         <PrimaryButton
           text="Baixar proposta"
-          onClick={() => downloadPortfolio(state.project)}
+          onClick={() => downloadPortfolio(transform(state.project))}
           icon={faDownload}
         />
       </Container>
@@ -176,10 +180,23 @@ export function ViewProject(state: ViewProjectPage) {
   );
 }
 
+function transform(project: Project): ApiProject {
+  return {
+    ...project,
+
+    yearlyConsumption: project.energyConsumption.reduce(
+      (acc, element) => acc + element
+    ),
+    estimatedYearlyProduction: project.energyProduction.reduce(
+      (acc, element) => acc + element
+    ),
+  };
+}
+
 const API_BASEURL = "http://67.205.147.225:3001";
 // const API_BASEURL = "http://localhost:3001";
 
-function downloadPortfolio(project: Project) {
+function downloadPortfolio(project: ApiProject) {
   const data = encodeURI(JSON.stringify(project));
   window.open(`${API_BASEURL}/portfolio?data=${data}`, "_blank");
 }

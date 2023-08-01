@@ -53,12 +53,10 @@ export const root = createSlice({
         name: "",
         location: "",
 
-        yearlyConsumption: 0,
         powerDistributionCompany: "",
         tension: "",
         circuitBreakerAmp: 0,
         roofType: "",
-        estimatedYearlyProduction: 0,
         necessaryArea: 0,
         potency: 0,
         nrOfModules: 0,
