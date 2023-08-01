@@ -9,7 +9,6 @@ export const projectSchema = z.object({
   tension: z.string(),
   circuitBreakerAmp: z.number(),
   roofType: z.string(),
-  necessaryArea: z.number(),
   potency: z.number(),
   nrOfModules: z.number(),
 

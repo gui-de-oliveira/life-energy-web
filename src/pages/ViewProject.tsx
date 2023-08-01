@@ -114,7 +114,10 @@ export function ViewProject(state: ViewProjectPage) {
                     Tensão: p.tension,
                     "Disjuntor (A)": p.circuitBreakerAmp,
                     Telhado: p.roofType,
-                    "Área necessária": `${p.necessaryArea} m²`,
+                    "Área necessária": `${format(
+                      transform(p).necessaryArea,
+                      2
+                    )} m²`,
                     "Potência usina": `${p.potency} kWp`,
                     "Quantidade de módulos": `${p.nrOfModules} módulos`,
                   }}
@@ -190,6 +193,8 @@ function transform(project: Project): ApiProject {
     estimatedYearlyProduction: project.energyProduction.reduce(
       (acc, element) => acc + element
     ),
+
+    necessaryArea: project.nrOfModules * 2.7,
   };
 }
 

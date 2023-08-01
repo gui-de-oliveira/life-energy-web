@@ -57,7 +57,6 @@ export const root = createSlice({
         tension: "",
         circuitBreakerAmp: 0,
         roofType: "",
-        necessaryArea: 0,
         potency: 0,
         nrOfModules: 0,
 

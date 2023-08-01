@@ -97,15 +97,6 @@ export function CreateProject(state: CreateProjectPage) {
           onUpdate={(value) => updateCreateProjectInput({ roofType: value })}
         />
         <NumberInput
-          label={"Área necessária"}
-          placeholder="60,00"
-          rightGroupText="m²"
-          value={state.input.necessaryArea}
-          onUpdate={(value) =>
-            updateCreateProjectInput({ necessaryArea: value })
-          }
-        />
-        <NumberInput
           label={"Potência usina"}
           placeholder="12,50"
           rightGroupText="kWp"
