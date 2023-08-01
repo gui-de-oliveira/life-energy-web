@@ -67,8 +67,8 @@ export const root = createSlice({
         groupType: "",
         fare: 0,
 
-        valueWithoutSolar: 13548.12,
-        valueWithSolar: 2150.41,
+        valueWithoutSolar: 0,
+        valueWithSolar: 0,
 
         equipments: {
           modules: [
