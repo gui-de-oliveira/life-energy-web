@@ -51,17 +51,24 @@ export function CreateProject(state: CreateProjectPage) {
           onUpdate={(value) => updateCreateProjectInput({ location: value })}
         />
         <h2>Projeto</h2>
-        <TextInput
+        <OptionInput
           label={"Concessionária"}
-          placeholder="CEEE/Equatorial"
+          options={["CEEE Equatorial", "RGE", "Coopernorte", "Celesc"]}
           value={state.input.powerDistributionCompany}
           onUpdate={(value) =>
             updateCreateProjectInput({ powerDistributionCompany: value })
           }
         />
-        <TextInput
+        <OptionInput
           label={"Tensão"}
-          placeholder="Trifásica 220/127V"
+          options={[
+            "Monofásica 127V",
+            "Monofásica 220V",
+            "Bifásica 220/127V",
+            "Bifásica 380/220V",
+            "Trifásica 220/127V",
+            "Trifásica 380/220V",
+          ]}
           value={state.input.tension}
           onUpdate={(value) => updateCreateProjectInput({ tension: value })}
         />
@@ -73,9 +80,19 @@ export function CreateProject(state: CreateProjectPage) {
             updateCreateProjectInput({ circuitBreakerAmp: value })
           }
         />
-        <TextInput
+        <OptionInput
           label={"Telhado"}
-          placeholder="Cerâmico"
+          options={[
+            "Cerâmico",
+            "Fibrocimento",
+            "Metálico",
+            "Shingle",
+            "Kalhetão Fibrocimento",
+            "Kalhetão Metálico",
+            "Laje - mourão",
+            "Carport",
+            "Solo",
+          ]}
           value={state.input.roofType}
           onUpdate={(value) => updateCreateProjectInput({ roofType: value })}
         />
@@ -370,6 +387,43 @@ export function generateChartUrl(chartId: string, datasets: number[][]) {
   const url = `https://quickchart.io/chart/render/${chartId}?${parameters}`;
 
   return url;
+}
+
+function OptionInput({
+  label,
+  onUpdate,
+  options,
+  value,
+}: {
+  label: string;
+  options: string[];
+  value: string;
+  onUpdate: (value: string) => void;
+}) {
+  const id = useGeneratedId();
+  console.log(value);
+  return (
+    <div className="row mb-3">
+      <label htmlFor={id} className="col-sm-3 col-form-label">
+        {label}
+      </label>
+
+      <div className="col-sm-9">
+        <select
+          className="form-select"
+          value={value}
+          onChange={(ev) => onUpdate(ev.currentTarget.value)}
+        >
+          <option value="">Selecione uma opção</option>
+          {options.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      </div>
+    </div>
+  );
 }
 
 function MoneyInput({
