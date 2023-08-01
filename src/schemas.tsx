@@ -9,8 +9,8 @@ export const projectSchema = z.object({
   tension: z.string(),
   circuitBreakerAmp: z.number(),
   roofType: z.string(),
-  potency: z.number(),
   nrOfModules: z.number(),
+  panelPotency: z.number(),
 
   energyConsumption: z.number().array(),
   energyProduction: z.number().array(),

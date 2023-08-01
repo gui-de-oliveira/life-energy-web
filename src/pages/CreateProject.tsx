@@ -34,19 +34,19 @@ export function CreateProject(state: CreateProjectPage) {
         <h2>Identificação</h2>
         <TextInput
           label={"Código"}
-          placeholder="P1234"
+          placeholder="Exemplo: P1234"
           value={state.input.id}
           onUpdate={(value) => updateCreateProjectInput({ id: value })}
         />
         <TextInput
           label={"Nome"}
-          placeholder="Empresa LTDA"
+          placeholder="Exemplo: Empresa LTDA"
           value={state.input.name}
           onUpdate={(value) => updateCreateProjectInput({ name: value })}
         />
         <TextInput
           label={"Região"}
-          placeholder="Porto Alegre/RS"
+          placeholder="Exemplo: Porto Alegre/RS"
           value={state.input.location}
           onUpdate={(value) => updateCreateProjectInput({ location: value })}
         />
@@ -74,7 +74,7 @@ export function CreateProject(state: CreateProjectPage) {
         />
         <NumberInput
           label={"Disjuntor (A)"}
-          placeholder="50"
+          placeholder="Exemplo: 50"
           value={state.input.circuitBreakerAmp}
           onUpdate={(value) =>
             updateCreateProjectInput({ circuitBreakerAmp: value })
@@ -97,15 +97,17 @@ export function CreateProject(state: CreateProjectPage) {
           onUpdate={(value) => updateCreateProjectInput({ roofType: value })}
         />
         <NumberInput
-          label={"Potência usina"}
-          placeholder="12,50"
-          rightGroupText="kWp"
-          value={state.input.potency}
-          onUpdate={(value) => updateCreateProjectInput({ potency: value })}
+          label={"Potência da placa"}
+          placeholder="Exemplo: Exemplo: 555"
+          rightGroupText="W"
+          value={state.input.panelPotency}
+          onUpdate={(value) =>
+            updateCreateProjectInput({ panelPotency: value })
+          }
         />
         <NumberInput
           label={"Quantidade de módulos"}
-          placeholder="20"
+          placeholder="Exemplo: 20"
           rightGroupText="módulos"
           value={state.input.nrOfModules}
           onUpdate={(value) => updateCreateProjectInput({ nrOfModules: value })}
@@ -113,7 +115,7 @@ export function CreateProject(state: CreateProjectPage) {
         <h2>Análise do projeto</h2>
         <NumberInput
           label={"Código do UG"}
-          placeholder="34712345"
+          placeholder="Exemplo: 34712345"
           value={state.input.ugId}
           onUpdate={(value) => updateCreateProjectInput({ ugId: value })}
         />
@@ -124,13 +126,13 @@ export function CreateProject(state: CreateProjectPage) {
         />
         <TextInput
           label={"Grupo"}
-          placeholder="A"
+          placeholder="Exemplo: A"
           value={state.input.groupType}
           onUpdate={(value) => updateCreateProjectInput({ groupType: value })}
         />
         <MoneyInput
           label={"Tarifa"}
-          placeholder="R$ 0,89"
+          placeholder="Exemplo: R$ 0,89"
           value={state.input.fare}
           onUpdate={(value) => updateCreateProjectInput({ fare: value })}
         />
@@ -145,7 +147,7 @@ export function CreateProject(state: CreateProjectPage) {
         {months.map((month, index) => (
           <NumberInput
             label={month}
-            placeholder="1.000"
+            placeholder="Exemplo: 1.000"
             rightGroupText="kWh"
             key={index}
             value={state.input.energyConsumption[index]}
@@ -160,7 +162,7 @@ export function CreateProject(state: CreateProjectPage) {
         {months.map((month, index) => (
           <NumberInput
             label={month}
-            placeholder="1.000"
+            placeholder="Exemplo: 1.000"
             rightGroupText="kWh"
             value={state.input.energyProduction[index]}
             key={index}
@@ -174,7 +176,7 @@ export function CreateProject(state: CreateProjectPage) {
         <h2>Economia</h2>
         <MoneyInput
           label={"Gasto anual SEM energia solar"}
-          placeholder="R$ 13.000,00"
+          placeholder="Exemplo: R$ 13.000,00"
           value={state.input.valueWithoutSolar}
           onUpdate={(value) =>
             updateCreateProjectInput({ valueWithoutSolar: value })
@@ -182,7 +184,7 @@ export function CreateProject(state: CreateProjectPage) {
         />
         <MoneyInput
           label={"Gasto anual COM energia solar"}
-          placeholder="R$ 2.000,00"
+          placeholder="Exemplo: R$ 2.000,00"
           value={state.input.valueWithSolar}
           onUpdate={(value) =>
             updateCreateProjectInput({ valueWithSolar: value })
@@ -229,7 +231,7 @@ export function CreateProject(state: CreateProjectPage) {
         <h2>Investimento e simulação financeira</h2>
         <MoneyInput
           label={"Investimento total"}
-          placeholder="R$ 45.000,00"
+          placeholder="Exemplo: R$ 45.000,00"
           value={state.input.investment.totalValue}
           onUpdate={(value) =>
             updateCreateProjectInput({
@@ -242,7 +244,7 @@ export function CreateProject(state: CreateProjectPage) {
         />
         <MoneyInput
           label={"Valor específico"}
-          placeholder="R$ 4.000,00"
+          placeholder="Exemplo: R$ 4.000,00"
           value={state.input.investment.specifics}
           onUpdate={(value) =>
             updateCreateProjectInput({
@@ -255,7 +257,7 @@ export function CreateProject(state: CreateProjectPage) {
         />
         <NumberInput
           label={"Payback"}
-          placeholder="3,5"
+          placeholder="Exemplo: 3,5"
           value={state.input.investment.paybackRate}
           onUpdate={(value) =>
             updateCreateProjectInput({
@@ -268,7 +270,7 @@ export function CreateProject(state: CreateProjectPage) {
         />
         <NumberInput
           label={"TIR"}
-          placeholder="3,5"
+          placeholder="Exemplo: 3,5"
           rightGroupText="%"
           value={state.input.investment.tirPercentage}
           onUpdate={(value) =>
@@ -282,7 +284,7 @@ export function CreateProject(state: CreateProjectPage) {
         />
         <MoneyInput
           label={"VPL"}
-          placeholder="R$ 60.000,00"
+          placeholder="Exemplo: R$ 60.000,00"
           value={state.input.investment.vplValue}
           onUpdate={(value) =>
             updateCreateProjectInput({
@@ -295,7 +297,7 @@ export function CreateProject(state: CreateProjectPage) {
         />
         <MoneyInput
           label={"FC. Período"}
-          placeholder="R$ 450.000,00"
+          placeholder="Exemplo: R$ 450.000,00"
           value={state.input.investment.fcPeriod}
           onUpdate={(value) =>
             updateCreateProjectInput({
@@ -308,7 +310,7 @@ export function CreateProject(state: CreateProjectPage) {
         />
         <TextInput
           label={"Simulação Banco"}
-          placeholder="SICRED"
+          placeholder="Exemplo: SICRED"
           value={state.input.investment.bankSimulation}
           onUpdate={(value) =>
             updateCreateProjectInput({
@@ -321,7 +323,7 @@ export function CreateProject(state: CreateProjectPage) {
         />
         <NumberInput
           label={"Parcelas"}
-          placeholder="120"
+          placeholder="Exemplo: 120"
           value={state.input.investment.nrOfPayments}
           onUpdate={(value) =>
             updateCreateProjectInput({
@@ -334,7 +336,7 @@ export function CreateProject(state: CreateProjectPage) {
         />
         <MoneyInput
           label={"Valor da parcela"}
-          placeholder="R$ 900,00"
+          placeholder="Exemplo: R$ 900,00"
           value={state.input.investment.monthlyPaymentValue}
           onUpdate={(value) =>
             updateCreateProjectInput({

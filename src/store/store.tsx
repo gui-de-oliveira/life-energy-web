@@ -27,6 +27,8 @@ const transform = createTransform(
 
   function rehydrate(outboundState: unknown): Reducer {
     const result = projectSchema
+      .omit({ panelPotency: true })
+      .and(z.object({ panelPotency: z.number().optional() }))
       .and(z.object({ internalId: z.string() }))
       .array()
       .safeParse(outboundState);
@@ -35,24 +37,29 @@ const transform = createTransform(
       return [];
     }
 
-    return result.data;
+    return result.data.map((project) => ({
+      ...project,
+      panelPotency: project.panelPotency ?? 555,
+    }));
   },
 
   { whitelist: [projectsSlice.name] }
 );
 
-const persistConfig = {
-  key: "root",
-  whitelist: [projectsSlice.name],
-  storage,
-  transform: [transform],
-};
-
 const rootReducer = combineReducers({
   root: root.reducer,
   projects: projectsSlice.reducer,
 });
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+const persistedReducer = persistReducer(
+  {
+    key: "root",
+    whitelist: [projectsSlice.name],
+    storage,
+    transforms: [transform],
+  },
+  rootReducer
+) as typeof rootReducer;
 
 export const store = configureStore({
   reducer: persistedReducer,

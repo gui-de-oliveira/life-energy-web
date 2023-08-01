@@ -118,7 +118,10 @@ export function ViewProject(state: ViewProjectPage) {
                       transform(p).necessaryArea,
                       2
                     )} m²`,
-                    "Potência usina": `${p.potency} kWp`,
+                    "Potência da usina": `${format(
+                      transform(p).potency,
+                      2
+                    )} kWp`,
                     "Quantidade de módulos": `${p.nrOfModules} módulos`,
                   }}
                 />
@@ -195,6 +198,7 @@ function transform(project: Project): ApiProject {
     ),
 
     necessaryArea: project.nrOfModules * 2.7,
+    potency: project.panelPotency * project.nrOfModules,
   };
 }
 
