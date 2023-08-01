@@ -108,7 +108,7 @@ export function ViewProject(state: ViewProjectPage) {
                       transform(p).yearlyConsumption
                     )} kWp`,
                     "Geração estimada ao ano": `${format(
-                      transform(p).necessaryArea
+                      transform(p).estimatedYearlyProduction
                     )} kWp`,
                     Concessionária: p.powerDistributionCompany,
                     Tensão: p.tension,
