@@ -64,7 +64,7 @@ export const root = createSlice({
         energyConsumption: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         energyProduction: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         ugId: 0,
-        hasUc: true,
+        ucCode: "",
         groupType: "",
         fare: 0,
 

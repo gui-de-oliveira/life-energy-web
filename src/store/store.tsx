@@ -29,8 +29,10 @@ const transform = createTransform(
     const result = projectSchema
       .omit({ panelPotency: true })
       .omit({ createdDate: true })
+      .omit({ ucCode: true })
       .and(z.object({ panelPotency: z.number().optional() }))
       .and(z.object({ createdDate: z.string().datetime().optional() }))
+      .and(z.object({ ucCode: z.string().optional() }))
       .and(z.object({ internalId: z.string() }))
       .array()
       .safeParse(outboundState);
@@ -43,6 +45,7 @@ const transform = createTransform(
       ...project,
       createdDate: project.createdDate ?? new Date().toISOString(),
       panelPotency: project.panelPotency ?? 555,
+      ucCode: project.ucCode ?? "SEM",
     }));
   },
 

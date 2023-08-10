@@ -135,7 +135,7 @@ export function ViewProject(state: ViewProjectPage) {
                   <Info
                     data={{
                       "Código do UG": p.ugId,
-                      "Possui UC?": p.hasUc ? "SIM" : "NÃO",
+                      "Código UC": p.ucCode,
                       Grupo: p.groupType,
                       Tarifa: formatMoney(p.fare),
                     }}
@@ -199,6 +199,8 @@ function transform(project: Project): ApiProject {
 
     necessaryArea: project.nrOfModules * 2.7,
     potency: project.panelPotency * project.nrOfModules,
+
+    hasUc: project.ucCode.toUpperCase() !== "SEM",
   };
 }
 

@@ -15,7 +15,7 @@ export const projectSchema = z.object({
   energyConsumption: z.number().array(),
   energyProduction: z.number().array(),
   ugId: z.number(),
-  hasUc: z.boolean(),
+  ucCode: z.string(),
   groupType: z.string(),
   fare: z.number(),
 

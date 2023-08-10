@@ -129,10 +129,11 @@ export function CreateProject(state: CreateProjectPage) {
           value={state.input.ugId}
           onUpdate={(value) => updateCreateProjectInput({ ugId: value })}
         />
-        <CheckboxInput
-          label={"Possui UC?"}
-          value={state.input.hasUc}
-          onUpdate={(value) => updateCreateProjectInput({ hasUc: value })}
+        <TextInput
+          label={"Código UC"}
+          placeholder="Exemplo: 12345/6"
+          value={state.input.ucCode}
+          onUpdate={(value) => updateCreateProjectInput({ ucCode: value })}
         />
         <TextInput
           label={"Grupo"}
@@ -515,52 +516,6 @@ function NumberInput({
               const data = parseFloat(value.replace(",", "."));
               onUpdate(data);
             }}
-          />
-
-          {rightGroupText && (
-            <span className="input-group-text">{rightGroupText}</span>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function CheckboxInput({
-  label,
-  value,
-  onUpdate,
-  placeholder,
-  leftGroupText,
-  rightGroupText,
-}: {
-  label: string;
-  value: boolean;
-  placeholder?: string;
-  leftGroupText?: string;
-  rightGroupText?: string;
-  onUpdate: (value: boolean) => void;
-}) {
-  const id = useGeneratedId();
-  return (
-    <div className="row mb-3">
-      <label htmlFor={id} className="col-sm-3 col-form-label">
-        {label}
-      </label>
-
-      <div className="col-sm-9">
-        <div className="input-group mb-3">
-          {leftGroupText && (
-            <span className="input-group-text">{leftGroupText}</span>
-          )}
-
-          <input
-            id={id}
-            type="checkbox"
-            className="form-check-input"
-            placeholder={placeholder}
-            checked={value}
-            onChange={(ev) => onUpdate(ev.target.checked)}
           />
 
           {rightGroupText && (
