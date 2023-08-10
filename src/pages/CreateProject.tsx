@@ -154,36 +154,53 @@ export function CreateProject(state: CreateProjectPage) {
           ])}
           alt="chart"
         />
-        <h3>Consumo estimado de energia</h3>
+
+        <div className="row mb-3">
+          <label className="col-sm-3" />
+
+          <div className="col-sm-4">
+            <label className="col-sm-4">Consumo</label>
+          </div>
+
+          <div className="col-sm-4">
+            <label className="col-sm-4">Geração</label>
+          </div>
+        </div>
+
         {months.map((month, index) => (
-          <NumberInput
-            label={month}
-            placeholder="Exemplo: 1.000"
-            rightGroupText="kWh"
-            key={index}
-            value={state.input.energyConsumption[index]}
-            onUpdate={(value) => {
-              const updated = [...state.input.energyConsumption];
-              updated[index] = value;
-              updateCreateProjectInput({ energyConsumption: updated });
-            }}
-          />
+          <div className="row mb-3">
+            <label className="col-sm-3 col-form-label">{month}</label>
+
+            <div className="col-sm-4">
+              <Input
+                placeholder="Exemplo: 1.000"
+                rightGroupText="kWh"
+                key={index}
+                value={state.input.energyConsumption[index]}
+                onUpdate={(value) => {
+                  const updated = [...state.input.energyConsumption];
+                  updated[index] = value;
+                  updateCreateProjectInput({ energyConsumption: updated });
+                }}
+              />
+            </div>
+
+            <div className="col-sm-4">
+              <Input
+                placeholder="Exemplo: 1.000"
+                rightGroupText="kWh"
+                key={index}
+                value={state.input.energyProduction[index]}
+                onUpdate={(value) => {
+                  const updated = [...state.input.energyProduction];
+                  updated[index] = value;
+                  updateCreateProjectInput({ energyProduction: updated });
+                }}
+              />
+            </div>
+          </div>
         ))}
-        <h3>Geração estimada de energia</h3>
-        {months.map((month, index) => (
-          <NumberInput
-            label={month}
-            placeholder="Exemplo: 1.000"
-            rightGroupText="kWh"
-            value={state.input.energyProduction[index]}
-            key={index}
-            onUpdate={(value) => {
-              const updated = [...state.input.energyProduction];
-              updated[index] = value;
-              updateCreateProjectInput({ energyProduction: updated });
-            }}
-          />
-        ))}
+
         <h2>Economia</h2>
         <MoneyInput
           label={"Gasto anual SEM energia solar"}
@@ -523,6 +540,51 @@ function NumberInput({
           )}
         </div>
       </div>
+    </div>
+  );
+}
+
+function Input({
+  value,
+  onUpdate,
+  placeholder,
+  leftGroupText,
+  rightGroupText,
+}: {
+  placeholder?: string;
+  leftGroupText?: string;
+  rightGroupText?: string;
+  value: number;
+  onUpdate: (value: number) => void;
+}) {
+  const id = useGeneratedId();
+  return (
+    <div className="input-group mb-3">
+      {leftGroupText && (
+        <span className="input-group-text">{leftGroupText}</span>
+      )}
+
+      <CurrencyInput
+        className="form-control"
+        id={id}
+        name={id}
+        placeholder={placeholder}
+        decimalSeparator=","
+        groupSeparator="."
+        defaultValue={value}
+        onValueChange={(value) => {
+          if (value === undefined) {
+            return;
+          }
+
+          const data = parseFloat(value.replace(",", "."));
+          onUpdate(data);
+        }}
+      />
+
+      {rightGroupText && (
+        <span className="input-group-text">{rightGroupText}</span>
+      )}
     </div>
   );
 }
