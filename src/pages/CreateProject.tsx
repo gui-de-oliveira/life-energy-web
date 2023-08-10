@@ -167,39 +167,55 @@ export function CreateProject(state: CreateProjectPage) {
           </div>
         </div>
 
-        {months.map((month, index) => (
-          <div className="row mb-3">
-            <label className="col-sm-3 col-form-label">{month}</label>
+        {months.map((month, index) => {
+          const onUpdate =
+            (current: number[], update: (value: number[]) => void) =>
+            (value: number) => {
+              const updated = [...current];
 
-            <div className="col-sm-4">
-              <Input
-                placeholder="Exemplo: 1.000"
-                rightGroupText="kWh"
-                key={index}
-                value={state.input.energyConsumption[index]}
-                onUpdate={(value) => {
-                  const updated = [...state.input.energyConsumption];
-                  updated[index] = value;
-                  updateCreateProjectInput({ energyConsumption: updated });
-                }}
-              />
-            </div>
+              const hasDifferentValue = updated.some(
+                (element, _, array) => element !== array[0]
+              );
 
-            <div className="col-sm-4">
-              <Input
-                placeholder="Exemplo: 1.000"
-                rightGroupText="kWh"
-                key={index}
-                value={state.input.energyProduction[index]}
-                onUpdate={(value) => {
-                  const updated = [...state.input.energyProduction];
-                  updated[index] = value;
-                  updateCreateProjectInput({ energyProduction: updated });
-                }}
-              />
+              if (index === 0 && !hasDifferentValue) {
+                update(months.map(() => value));
+                return;
+              }
+
+              updated[index] = value;
+              update(updated);
+            };
+
+          return (
+            <div className="row mb-3" key={index}>
+              <label className="col-sm-3 col-form-label">{month}</label>
+
+              <div className="col-sm-4">
+                <Input
+                  placeholder="Exemplo: 1.000"
+                  rightGroupText="kWh"
+                  key={index}
+                  value={state.input.energyConsumption[index]}
+                  onUpdate={onUpdate(state.input.energyConsumption, (updated) =>
+                    updateCreateProjectInput({ energyConsumption: updated })
+                  )}
+                />
+              </div>
+
+              <div className="col-sm-4">
+                <Input
+                  placeholder="Exemplo: 1.000"
+                  rightGroupText="kWh"
+                  key={index}
+                  value={state.input.energyProduction[index]}
+                  onUpdate={onUpdate(state.input.energyProduction, (updated) =>
+                    updateCreateProjectInput({ energyProduction: updated })
+                  )}
+                />
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
 
         <h2>Economia</h2>
         <MoneyInput
@@ -422,7 +438,7 @@ function OptionInput({
   onUpdate: (value: string) => void;
 }) {
   const id = useGeneratedId();
-  console.log(value);
+
   return (
     <div className="row mb-3">
       <label htmlFor={id} className="col-sm-3 col-form-label">
@@ -571,9 +587,10 @@ function Input({
         placeholder={placeholder}
         decimalSeparator=","
         groupSeparator="."
-        defaultValue={value}
+        value={value}
         onValueChange={(value) => {
           if (value === undefined) {
+            onUpdate(0);
             return;
           }
 
