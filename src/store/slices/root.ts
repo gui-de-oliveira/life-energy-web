@@ -52,6 +52,7 @@ export const root = createSlice({
         id: "",
         name: "",
         location: "",
+        createdDate: new Date().toISOString(),
 
         powerDistributionCompany: "",
         tension: "",

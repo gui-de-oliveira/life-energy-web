@@ -50,6 +50,16 @@ export function CreateProject(state: CreateProjectPage) {
           value={state.input.location}
           onUpdate={(value) => updateCreateProjectInput({ location: value })}
         />
+        <DateInput
+          label="Data de geração"
+          value={new Date(state.input.createdDate)}
+          onUpdate={(value) =>
+            updateCreateProjectInput({
+              createdDate: value.toISOString(),
+            })
+          }
+        />
+
         <h2>Projeto</h2>
         <OptionInput
           label={"Concessionária"}

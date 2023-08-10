@@ -6,6 +6,9 @@ import { PrimaryButton } from "../ds/Buttons";
 import { Container } from "../ds/Container";
 import { useProjects } from "../store/slices/projects";
 
+import moment from "moment";
+moment.locale("pt-BR");
+
 export function ProjectsList(_state: ProjectsListPage) {
   const { openProject, goToCreateProjectPage: createProject } = useRoot();
   const { state } = useProjects();
@@ -20,7 +23,9 @@ export function ProjectsList(_state: ProjectsListPage) {
             key={index}
             icon={faCar}
             title={`${project.id} - ${project.name}`}
-            description="30/06/2023 - Porto Alegre/RS"
+            description={`${moment(project.createdDate)
+              .utc()
+              .format("DD/MM/YYYY")} - ${project.location}`}
             onClick={() => openProject(project)}
           />
         ))}

@@ -40,6 +40,7 @@ export const projectSchema = z.object({
     monthlyPaymentValue: z.number(),
   }),
 
+  createdDate: z.string().datetime(),
   dueDate: z.string().datetime(),
 });
 export type Project = z.infer<typeof projectSchema>;
