@@ -199,8 +199,6 @@ function transform(project: Project): ApiProject {
 
     necessaryArea: project.nrOfModules * 2.7,
     potency: project.panelPotency * project.nrOfModules,
-
-    hasUc: project.ucCode.toUpperCase() !== "SEM",
   };
 }
 

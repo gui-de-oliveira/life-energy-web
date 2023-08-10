@@ -49,6 +49,7 @@ const apiProjectSchema = z.object({
   id: z.string(),
   name: z.string(),
   location: z.string(),
+  createdDate: z.string().datetime(),
 
   yearlyConsumption: z.number(),
   powerDistributionCompany: z.string(),
@@ -63,7 +64,7 @@ const apiProjectSchema = z.object({
   energyConsumption: z.number().array(),
   energyProduction: z.number().array(),
   ugId: z.number(),
-  hasUc: z.boolean(),
+  ucCode: z.string(),
   groupType: z.string(),
   fare: z.number(),
 
