@@ -73,18 +73,18 @@ export const root = createSlice({
         equipments: {
           modules: [
             "22 módulos",
-            "55 kWh",
+            "555 kWp",
             "DAH SOLAR",
             "Mono Half-cell",
-            "21,42% de eficiência",
-            "12 anos de garantia",
-            "30 anos de garantia de performance 84,95%",
+            "21,48% de eficiência",
+            "25 anos de garantia de performance 84,8%",
           ],
 
           inversors: [
             "Inversor Solis",
             "10kW de potência",
             "10 anos de garantia",
+            "15 anos de vida útil",
           ],
 
           structures: [
