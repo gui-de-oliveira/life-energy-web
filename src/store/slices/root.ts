@@ -74,7 +74,7 @@ export const root = createSlice({
         equipments: {
           modules: [
             "22 módulos",
-            "555 kWp",
+            "555 Wp",
             "DAH SOLAR",
             "Mono Half-cell",
             "21,48% de eficiência",
@@ -83,7 +83,7 @@ export const root = createSlice({
 
           inversors: [
             "Inversor Solis",
-            "10kW de potência",
+            "10 kW de potência",
             "10 anos de garantia",
             "15 anos de vida útil",
           ],
