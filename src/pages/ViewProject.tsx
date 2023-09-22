@@ -198,7 +198,7 @@ function transform(project: Project): ApiProject {
     ),
 
     necessaryArea: project.nrOfModules * 2.7,
-    potency: project.panelPotency * project.nrOfModules,
+    potency: (project.panelPotency * project.nrOfModules) / 1000,
   };
 }
 
